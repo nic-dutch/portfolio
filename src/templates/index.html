@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> shared/head}}
+<body>
+    <!-- Loading indicator -->
+    <div id="loading-indicator" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading components...</span>
+            </div>
+            <p class="mt-2">Loading portfolio...</p>
+        </div>
+    </div>
+
+    <!-- Mobile Toggle Button -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
+    {{> shared/navigation}}
+    
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    {{> shared/social-bar}}
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {{> index/hero-section}}
+        {{> index/research-section}}
+        {{> index/projects-section}}
+        {{> index/experience-section}}
+        {{> index/skills-section}}
+        {{> index/publications-section}}
+        {{> index/contact-section}}
+    </main>
+
+    {{> shared/scripts}}
+    
+    <script>
+        // Initialize when components are loaded
+        document.addEventListener('componentsLoaded', function() {
+            // Hide loading indicator
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {
+                loadingIndicator.style.display = 'none';
+            }
+            
+            // Initialize your existing JavaScript
+            if (typeof initSidebar === 'function') initSidebar();
+            if (typeof initSearch === 'function') initSearch();
+            if (typeof initNavigation === 'function') initNavigation();
+            if (typeof initAnimations === 'function') initAnimations();
+            
+            console.log('🎉 Portfolio initialized successfully!');
+        });
+    </script>
+</body>

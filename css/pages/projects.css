@@ -1,0 +1,19 @@
+/* Projects Page - Main CSS Import File */
+@import url('../components/projects/layout.css');
+
+/* Import shared component styles (same as index page) */
+@import url('../components/sidebar.css');
+@import url('../components/shared/social-bar.css');
+
+/* Import projects component styles */
+@import url('../components/projects/jumbotron.css');
+@import url('../components/projects/category-cards.css');
+
+/* Import utilities */
+@import url('../utilities/responsive.css');
+
+/* Projects page specific overrides if needed */
+.main-content {
+    margin-left: var(--sidebar-width);
+    margin-top: 0;
+}

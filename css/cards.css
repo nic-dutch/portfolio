@@ -1,0 +1,286 @@
+/* ===== css/components/cards.css ===== */
+/* Project Cards */
+.project-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  background: white;
+  height: 100%;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.project-image {
+  position: relative;
+  height: 200px;
+  background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+}
+
+.project-image.project-rem {
+  background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+}
+
+.project-image.project-satellite {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+.project-image.project-database {
+  background: linear-gradient(135deg, #654ea3 0%, #eaafc8 100%);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.project-status {
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  backdrop-filter: blur(5px);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.project-location {
+  font-size: 0.85rem;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.project-badges {
+  margin: 1rem 0;
+}
+
+.project-badges .badge {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  padding: 0.35em 0.65em;
+}
+
+.github-link {
+  text-decoration: none;
+  color: #495057;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.github-link:hover {
+  color: #007bff;
+}
+
+/* Research highlight cards */
+.research-highlight {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.research-highlight:hover {
+  transform: translateY(-3px);
+}
+
+.research-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.research-outcomes {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+}
+
+.research-outcomes li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #6c757d;
+}
+
+.research-outcomes li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Experience cards */
+.experience-item {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.experience-item:hover {
+  transform: translateY(-3px);
+}
+
+.experience-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.experience-title {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.experience-description {
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+/* Publication cards */
+.publication-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  border-left: 4px solid var(--primary-color);
+}
+
+.pub-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f8f9fa;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.pub-title {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.pub-authors {
+  color: #6c757d;
+  margin-bottom: 0.25rem;
+  font-style: italic;
+}
+
+.pub-journal {
+  color: #495057;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.pub-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.pub-link {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.pub-link:hover {
+  color: var(--secondary-color);
+}
+
+/* Skill category cards */
+.skill-category {
+  background: white;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.skill-category:hover {
+  transform: translateY(-3px);
+}
+
+.skill-category-title {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skill-category-title i {
+  font-size: 1.5rem;
+}
+
+.skill-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-list li {
+  padding: 0.5rem 0;
+  color: #6c757d;
+  border-bottom: 1px solid #f1f3f4;
+  transition: color 0.3s ease;
+}
+
+.skill-list li:last-child {
+  border-bottom: none;
+}
+
+.skill-list li:hover {
+  color: var(--primary-color);
+  padding-left: 0.5rem;
+}

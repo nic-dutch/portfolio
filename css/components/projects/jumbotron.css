@@ -1,0 +1,130 @@
+/* css/components/projects/jumbotron.css */
+/* Fixed Projects Jumbotron to work with sidebar layout */
+
+.projects-jumbotron {
+    background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+    color: white;
+    padding: 0.75rem 0 1rem 0;
+    /* IMPORTANT: Don't use margin-top here, let main-content handle positioning */
+    margin-top: var(--social-bar-height, 60px);
+    position: relative;
+    z-index: 1; /* Keep below sidebar and social bar */
+    /* Make sure it doesn't interfere with sidebar */
+    margin-left: 0; /* Don't push against sidebar */
+    width: 100%; /* Full width of main content area */
+}
+
+.projects-jumbotron::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.breadcrumb-minimal {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-minimal .breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-minimal .breadcrumb-item a:hover {
+    color: white;
+}
+
+.breadcrumb-minimal .breadcrumb-item.active {
+    color: white;
+    font-weight: 500;
+}
+
+.jumbotron-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.jumbotron-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+}
+
+.project-stats-mini {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+}
+
+.stat-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.stat-badge:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .projects-jumbotron {
+        padding: 1rem 0 0.75rem 0;
+        /* On mobile, account for no sidebar offset */
+        margin-left: 0;
+    }
+    
+    .jumbotron-title {
+        font-size: 2rem;
+    }
+    
+    .jumbotron-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1rem !important;
+    }
+    
+    .project-stats-mini {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+    
+    .stat-badge {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .projects-jumbotron {
+        padding: 0.75rem 0 0.5rem 0;
+    }
+    
+    .jumbotron-title {
+        font-size: 1.75rem;
+    }
+    
+    .breadcrumb-minimal {
+        font-size: 0.8rem;
+    }
+}

@@ -1,0 +1,85 @@
+/* css/components/projects/layout.css */
+/* Layout fixes for projects page to work with sidebar */
+
+/* Main content positioning for projects page */
+.main-content {
+    /* Position main content to account for fixed sidebar */
+    margin-left: var(--sidebar-width, 280px);
+    /* Account for social bar at top */
+    padding-top: 0; /* Let jumbotron handle its own spacing */
+    min-height: 100vh;
+    /* Smooth transition when sidebar toggles */
+    transition: margin-left var(--transition-speed, 0.3s) ease;
+    /* Prevent overflow issues */
+    overflow-x: hidden;
+}
+
+/* Social bar positioning */
+.top-social-bar {
+    /* Position social bar to account for sidebar */
+    left: var(--sidebar-width, 280px);
+    /* Smooth transition */
+    transition: left var(--transition-speed, 0.3s) ease;
+}
+
+/* Ensure proper z-index stacking */
+.sidebar {
+    z-index: 1000;
+}
+
+.top-social-bar {
+    z-index: 999;
+}
+
+.projects-jumbotron {
+    z-index: 1;
+}
+
+.sidebar-toggle {
+    z-index: 1001;
+}
+
+.sidebar-overlay {
+    z-index: 998;
+}
+
+/* Section spacing for projects page */
+.section-padding {
+    padding: 3rem 0;
+}
+
+/* Mobile responsive layout */
+@media (max-width: 768px) {
+    .main-content {
+        /* On mobile, no sidebar offset needed */
+        margin-left: 0;
+    }
+    
+    .top-social-bar {
+        /* Social bar spans full width on mobile */
+        left: 0;
+    }
+    
+    .section-padding {
+        padding: 2rem 0;
+    }
+}
+
+/* Prevent horizontal scroll */
+body {
+    overflow-x: hidden;
+}
+
+/* Container adjustments for projects page */
+.container {
+    max-width: 1200px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

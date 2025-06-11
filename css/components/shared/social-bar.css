@@ -1,0 +1,134 @@
+/* ===== css/components/social-bar.css ===== */
+
+/* Top Social Bar */
+.top-social-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: var(--sidebar-width);
+  height: var(--social-bar-height);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 var(--spacing-lg);
+  transition: left 0.3s ease;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.social-link:hover {
+  color: var(--primary-color);
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-color: rgba(var(--primary-color-rgb), 0.2);
+  transform: translateY(-1px);
+}
+
+.social-link i {
+  font-size: 1rem;
+  color: var(--primary-color);
+}
+
+/* Social link variants */
+.social-link[href*="mailto"] i {
+  color: #ea4335;
+}
+
+.social-link[href*="github"] i {
+  color: #333;
+}
+
+.social-link[href*="linkedin"] i {
+  color: #0077b5;
+}
+
+.social-link[href*="orcid"] i {
+  color: #a6ce39;
+}
+
+/* Hover effects for specific platforms */
+.social-link[href*="mailto"]:hover {
+  background: rgba(234, 67, 53, 0.1);
+  border-color: rgba(234, 67, 53, 0.2);
+  color: #ea4335;
+}
+
+.social-link[href*="github"]:hover {
+  background: rgba(51, 51, 51, 0.1);
+  border-color: rgba(51, 51, 51, 0.2);
+  color: #333;
+}
+
+.social-link[href*="linkedin"]:hover {
+  background: rgba(0, 119, 181, 0.1);
+  border-color: rgba(0, 119, 181, 0.2);
+  color: #0077b5;
+}
+
+.social-link[href*="orcid"]:hover {
+  background: rgba(166, 206, 57, 0.1);
+  border-color: rgba(166, 206, 57, 0.2);
+  color: #a6ce39;
+}
+
+/* Condensed view for smaller screens */
+.social-link span {
+  transition: opacity 0.3s ease;
+}
+
+/* Mobile adjustments */
+@media (max-width: 1200px) {
+  .social-link span {
+    display: none;
+  }
+  
+  .social-link {
+    padding: 0.5rem;
+    min-width: 40px;
+    justify-content: center;
+  }
+  
+  .social-links {
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  .top-social-bar {
+    left: 0;
+    padding: 0 var(--spacing-md);
+    height: calc(var(--social-bar-height) - 10px);
+  }
+  
+  .social-links {
+    gap: var(--spacing-xs);
+  }
+  
+  .social-link {
+    padding: 0.4rem;
+    min-width: 36px;
+    font-size: 0.85rem;
+  }
+}

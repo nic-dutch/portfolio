@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Geospatial Ecologist | Forest Resilience Researcher</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Mobile Toggle Button -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Nic Dutch</h3>
+            <p>Geospatial Ecologist</p>
+            <p class="sidebar-subtitle">MS GIS Student | UCANR Research Associate</p>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="sidebar-search">
+            <div class="search-container">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search research..." id="projectSearch">
+                <button class="search-clear" id="searchClear">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            
+            <!-- Research Filter Tags -->
+            <div class="filter-tags">
+                <span class="filter-tag active" data-filter="all">All</span>
+                <span class="filter-tag" data-filter="post-fire">Post-Fire</span>
+                <span class="filter-tag" data-filter="reforestation">Reforestation</span>
+                <span class="filter-tag" data-filter="remote-sensing">Remote Sensing</span>
+                <span class="filter-tag" data-filter="gis">GIS</span>
+            </div>
+        </div>
+        
+        <ul class="sidebar-nav nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#home">
+                    <i class="bi bi-house"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#research">
+                    <i class="bi bi-tree"></i>
+                    <span>Research Focus</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#projects">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#experience">
+                    <i class="bi bi-tools"></i>
+                    <span>Field Experience</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#skills">
+                    <i class="bi bi-cpu"></i>
+                    <span>Technical Skills</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#publications">
+                    <i class="bi bi-journal-text"></i>
+                    <span>Publications</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#contact">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Top Social Bar -->
+    <div class="top-social-bar">
+        <div class="social-links">
+            <a href="mailto:your.email@example.com" class="social-link">
+                <i class="bi bi-envelope-fill"></i>
+                <span>your.email@example.com</span>
+            </a>
+            <a href="https://github.com/yourusername" target="_blank" class="social-link">
+                <i class="bi bi-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://linkedin.com/in/yourprofile" target="_blank" class="social-link">
+                <i class="bi bi-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+            <a href="https://orcid.org/your-orcid" target="_blank" class="social-link">
+                <i class="bi bi-person-badge"></i>
+                <span>ORCID</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="hero-badge">
+                            <i class="bi bi-geo-alt-fill me-2"></i>
+                            Sierra Nevada, California
+                        </div>
+                        <h1 class="hero-title">Bridging Forest Management & Geospatial Science</h1>
+                        <p class="hero-subtitle">I'm a geospatial ecologist focused on post-fire forest resilience in the Sierra Nevada. Currently pursuing my MS in GIS while working as a Research Associate with UCANR's Post-Fire Forest Resilience Program, where I've established collaborative reforestation effectiveness monitoring protocols with natural resource organizations.</p>
+                        
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">1st</div>
+                                <div class="stat-label">Year Results</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">Multi</div>
+                                <div class="stat-label">Agency Collaboration</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">Sierra</div>
+                                <div class="stat-label">Nevada Focus</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-badges">
+                            <span class="tech-badge forest">Forest Management</span>
+                            <span class="tech-badge gis">GIS & Remote Sensing</span>
+                            <span class="tech-badge research">Applied Research</span>
+                            <span class="tech-badge data">Database Management</span>
+                        </div>
+                        
+                        <div class="hero-buttons">
+                            <a href="#research" class="btn btn-custom me-3">View Research</a>
+                            <a href="#contact" class="btn btn-outline-light">Collaborate</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-image">
+                            <!-- Placeholder for dramatic before/after comparison -->
+                            <div class="image-comparison">
+                                <div class="comparison-container">
+                                    <div class="before-after-placeholder">
+                                        <div class="before-section">
+                                            <div class="image-placeholder forest-burned">
+                                                <i class="bi bi-fire"></i>
+                                                <span>Post-Fire</span>
+                                            </div>
+                                        </div>
+                                        <div class="after-section">
+                                            <div class="image-placeholder forest-restored">
+                                                <i class="bi bi-tree-fill"></i>
+                                                <span>Reforested</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comparison-label">Reforestation Effectiveness Monitoring</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Focus Section -->
+        <section id="research" class="section-padding bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Research Focus</h2>
+                        <p class="section-subtitle">Post-fire forest resilience through collaborative monitoring and geospatial analysis</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="research-highlight">
+                            <div class="research-icon">
+                                <i class="bi bi-diagram-3"></i>
+                            </div>
+                            <h4>Reforestation Effectiveness Monitoring (REM)</h4>
+                            <p>Leading a collaborative project with natural resource organizations to establish standardized protocols for monitoring reforestation success in post-fire landscapes. Developed experimental design framework and completed first-year results analysis.</p>
+                            <ul class="research-outcomes">
+                                <li>Multi-agency collaboration protocol established</li>
+                                <li>Standardized monitoring methodology developed</li>
+                                <li>First-year effectiveness results documented</li>
+                                <li>Literature review and best practices compiled</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="research-highlight">
+                            <div class="research-icon">
+                                <i class="bi bi-globe"></i>
+                            </div>
+                            <h4>Geospatial Analysis of Forest Resilience</h4>
+                            <p>Integrating remote sensing data with field measurements to understand spatial patterns of forest recovery and identify factors that enhance post-fire resilience in Sierra Nevada ecosystems.</p>
+                            <ul class="research-outcomes">
+                                <li>Satellite data analysis (Landsat, Sentinel)</li>
+                                <li>NDVI and vegetation index monitoring</li>
+                                <li>Spatial pattern analysis of recovery success</li>
+                                <li>Predictive modeling for reforestation planning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects Section -->
+        <section id="projects" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Featured Projects</h2>
+                        <p class="section-subtitle">Combining field expertise with cutting-edge geospatial technology</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <!-- REM Project Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card project-card h-100" data-project="rem-protocol">
+                            <div class="project-image">
+                                <div class="image-placeholder project-rem">
+                                    <i class="bi bi-diagram-3"></i>
+                                </div>
+                                <div class="project-overlay">
+                                    <span class="project-status">Ongoing</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-header">
+                                    <h5 class="card-title">REM Protocol Development</h5>
+                                    <div class="project-location">
+                                        <i class="bi bi-geo-alt"></i> Sierra Nevada
+                                    </div>
+                                </div>
+                                <p class="card-text">Collaborative reforestation effectiveness monitoring protocol with standardized field methods and data collection frameworks for natural resource agencies.</p>
+                                <div class="project-badges">
+                                    <span class="badge bg-success">Field Protocol</span>
+                                    <span class="badge bg-info">Multi-Agency</span>
+                                    <span class="badge bg-warning">Standardization</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="#" class="github-link">
+                                    <i class="bi bi-file-text"></i> View Protocol
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Remote Sensing Analysis Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card project-card h-100" data-project="remote-sensing">
+                            <div class="project-image">
+                                <div class="image-placeholder project-satellite">
+                                    <i class="bi bi-satellite"></i>
+                                </div>
+                                <div class="project-overlay">
+                                    <span class="project-status">Complete</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-header">
+                                    <h5 class="card-title">Post-Fire Recovery Analysis</h5>
+                                    <div class="project-location">
+                                        <i class="bi bi-geo-alt"></i> California
+                                    </div>
+                                </div>
+                                <p class="card-text">Multi-temporal satellite imagery analysis using Google Earth Engine and Python to track vegetation recovery patterns in post-fire landscapes.</p>
+                                <div class="project-badges">
+                                    <span class="badge bg-primary">Google Earth Engine</span>
+                                    <span class="badge bg-secondary">Python</span>
+                                    <span class="badge bg-info">NDVI</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="#" class="github-link">
+                                    <i class="bi bi-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GIS Database Management Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card project-card h-100" data-project="gis-database">
+                            <div class="project-image">
+                                <div class="image-placeholder project-database">
+                                    <i class="bi bi-database"></i>
+                                </div>
+                                <div class="project-overlay">
+                                    <span class="project-status">Ongoing</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-header">
+                                    <h5 class="card-title">Forest Monitoring Database</h5>
+                                    <div class="project-location">
+                                        <i class="bi bi-geo-alt"></i> Sierra Nevada
+                                    </div>
+                                </div>
+                                <p class="card-text">Integrated spatial database system for managing field monitoring data, remote sensing results, and collaborative research outputs across multiple organizations.</p>
+                                <div class="project-badges">
+                                    <span class="badge bg-primary">ArcGIS</span>
+                                    <span class="badge bg-success">PostGIS</span>
+                                    <span class="badge bg-warning">Data Management</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="#" class="github-link">
+                                    <i class="bi bi-diagram-3"></i> View Schema
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <a href="projects.html" class="btn btn-custom">View All Projects</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Field Experience Section -->
+        <section id="experience" class="section-padding bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Field Experience</h2>
+                        <p class="section-subtitle">Hands-on forest management expertise informing research design</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="experience-item">
+                            <i class="bi bi-tree experience-icon text-success"></i>
+                            <h4 class="experience-title">Forest Inventory</h4>
+                            <p class="experience-description">Comprehensive forest stand assessments, species identification, and health monitoring protocols in diverse Sierra Nevada ecosystems.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="experience-item">
+                            <i class="bi bi-fire experience-icon text-warning"></i>
+                            <h4 class="experience-title">Prescribed Fire</h4>
+                            <p class="experience-description">Planning and implementation of controlled burns for forest health improvement and fire risk reduction in fire-adapted ecosystems.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="experience-item">
+                            <i class="bi bi-tools experience-icon text-primary"></i>
+                            <h4 class="experience-title">Fuel Reduction</h4>
+                            <p class="experience-description">Mechanical treatments, thinning operations, and biomass management to reduce wildfire risk and improve forest resilience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills Section -->
+        <section id="skills" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Technical Skills</h2>
+                        <p class="section-subtitle">Integrating field knowledge with advanced geospatial technologies</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="skill-category">
+                            <h5 class="skill-category-title">
+                                <i class="bi bi-map text-primary"></i>
+                                GIS Platforms
+                            </h5>
+                            <ul class="skill-list">
+                                <li>ArcGIS Pro/Desktop</li>
+                                <li>QGIS</li>
+                                <li>PostGIS</li>
+                                <li>Spatial Databases</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="skill-category">
+                            <h5 class="skill-category-title">
+                                <i class="bi bi-satellite text-info"></i>
+                                Remote Sensing
+                            </h5>
+                            <ul class="skill-list">
+                                <li>Google Earth Engine</li>
+                                <li>Landsat/Sentinel Analysis</li>
+                                <li>NDVI & Vegetation Indices</li>
+                                <li>Change Detection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="skill-category">
+                            <h5 class="skill-category-title">
+                                <i class="bi bi-code-square text-success"></i>
+                                Programming
+                            </h5>
+                            <ul class="skill-list">
+                                <li>Python (Pandas, NumPy)</li>
+                                <li>R (Statistical Analysis)</li>
+                                <li>JavaScript (GEE)</li>
+                                <li>SQL</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="skill-category">
+                            <h5 class="skill-category-title">
+                                <i class="bi bi-clipboard-data text-warning"></i>
+                                Field Methods
+                            </h5>
+                            <ul class="skill-list">
+                                <li>Forest Inventory</li>
+                                <li>GPS/GNSS</li>
+                                <li>Field Data Collection</li>
+                                <li>Ecological Monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="section-padding bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-5">
+                        <h2 class="section-title">Publications & Presentations</h2>
+                        <p class="section-subtitle">Sharing research findings with the scientific community</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="publication-item">
+                            <div class="pub-type">
+                                <i class="bi bi-journal-text"></i>
+                                Journal Article
+                            </div>
+                            <h5 class="pub-title">Reforestation Effectiveness Monitoring: A Collaborative Approach</h5>
+                            <p class="pub-authors">Your Name, et al.</p>
+                            <p class="pub-journal">Forest Ecology and Management (In Review)</p>
+                            <div class="pub-links">
+                                <a href="#" class="pub-link">
+                                    <i class="bi bi-file-pdf"></i> Preprint
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="publication-item">
+                            <div class="pub-type">
+                                <i class="bi bi-mic"></i>
+                                Conference Presentation
+                            </div>
+                            <h5 class="pub-title">Multi-Agency Protocols for Post-Fire Forest Monitoring</h5>
+                            <p class="pub-authors">Your Name</p>
+                            <p class="pub-journal">Society of American Foresters Convention 2024</p>
+                            <div class="pub-links">
+                                <a href="#" class="pub-link">
+                                    <i class="bi bi-play-circle"></i> Presentation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                        <h2 class="section-title">Let's Collaborate</h2>
+                        <p class="section-subtitle">Interested in forest resilience research, geospatial analysis, or collaborative monitoring protocols? I'd love to connect.</p>
+                        
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <div class="contact-buttons">
+                                    <a href="mailto:your.email@example.com" class="btn btn-outline-primary btn-lg">
+                                        <i class="bi bi-envelope me-2"></i>Email Me
+                                    </a>
+                                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="btn btn-outline-primary btn-lg">
+                                        <i class="bi bi-linkedin me-2"></i>LinkedIn
+                                    </a>
+                                    <a href="#" target="_blank" class="btn btn-outline-primary btn-lg">
+                                        <i class="bi bi-file-pdf me-2"></i>CV/Resume
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="affiliation-note mt-4">
+                            <p class="text-muted">
+                                <i class="bi bi-building me-2"></i>
+                                Research Associate, UCANR Post-Fire Forest Resilience Program<br>
+                                MS in GIS Student | Sierra Nevada Research Focus
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

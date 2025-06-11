@@ -1,0 +1,276 @@
+/* components/hero.css - Forest Ecology Hero section styles */
+
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--forest-green) 100%);
+  color: var(--text-light);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(107, 142, 35, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(34, 139, 34, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(45, 80, 22, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,0.15);
+  color: var(--text-light);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-xl);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  margin-bottom: var(--spacing-lg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  animation: heroSlide 1s ease-out;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  animation: heroSlide 1s ease-out 0.2s both;
+}
+
+.hero-subtitle {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xl);
+  opacity: 0.95;
+  line-height: 1.6;
+  animation: heroSlide 1s ease-out 0.4s both;
+}
+
+.hero-stats {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  animation: heroSlide 1s ease-out 0.6s both;
+}
+
+.stat-item {
+  text-align: center;
+  background: rgba(255,255,255,0.1);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-lg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  min-width: 80px;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-light);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+.tech-badges {
+  margin-bottom: var(--spacing-xl);
+  animation: heroSlide 1s ease-out 0.8s both;
+}
+
+.tech-badge {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-xl);
+  margin: var(--spacing-xs);
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.tech-badge.forest {
+  background: rgba(107, 142, 35, 0.3);
+  color: var(--text-light);
+}
+
+.tech-badge.gis {
+  background: rgba(74, 124, 89, 0.3);
+  color: var(--text-light);
+}
+
+.tech-badge.research {
+  background: rgba(112, 128, 144, 0.3);
+  color: var(--text-light);
+}
+
+.tech-badge.data {
+  background: rgba(205, 133, 63, 0.3);
+  color: var(--text-light);
+}
+
+.tech-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.hero-buttons {
+  animation: heroSlide 1s ease-out 1s both;
+}
+
+.hero-image {
+  animation: heroSlide 1s ease-out 1.2s both;
+}
+
+/* Image Comparison Component */
+.image-comparison {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.comparison-container {
+  position: relative;
+  background: rgba(255,255,255,0.1);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.before-after-placeholder {
+  display: flex;
+  height: 300px;
+}
+
+.before-section,
+.after-section {
+  flex: 1;
+  position: relative;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.forest-burned {
+  background: linear-gradient(45deg, rgba(178, 34, 34, 0.3), rgba(205, 133, 63, 0.3));
+  color: var(--fire-orange);
+}
+
+.forest-restored {
+  background: linear-gradient(45deg, rgba(34, 139, 34, 0.3), rgba(107, 142, 35, 0.3));
+  color: var(--success-color);
+}
+
+.image-placeholder span {
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-sm);
+  font-weight: 600;
+}
+
+.comparison-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: var(--spacing-sm);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes heroSlide {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stat-item {
+    min-width: 70px;
+  }
+
+  .comparison-container {
+    max-width: 100%;
+  }
+
+  .before-after-placeholder {
+    height: 250px;
+  }
+
+  .image-placeholder {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-stats {
+    gap: var(--spacing-sm);
+  }
+
+  .stat-item {
+    padding: var(--spacing-sm);
+    min-width: 60px;
+  }
+
+  .stat-number {
+    font-size: 1.2rem;
+  }
+
+  .before-after-placeholder {
+    height: 200px;
+  }
+
+  .hero-buttons .btn {
+    display: block;
+    width: 100%;
+    margin: var(--spacing-xs) 0;
+  }
+}

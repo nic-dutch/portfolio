@@ -18,15 +18,6 @@
     <script src="js/components/component-loader.js"></script>
 </head>
 <body>
-    <!-- Loading indicator -->
-    <div id="loading-indicator" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
-        <div class="text-center">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading projects...</span>
-            </div>
-            <p class="mt-2">Loading projects...</p>
-        </div>
-    </div>
 
     <!-- Mobile Toggle Button -->
     <button class="sidebar-toggle" id="sidebarToggle">
@@ -51,22 +42,5 @@
     
     <!-- Custom JavaScript -->
     <script src="js/main.js"></script>
-    
-    <script>
-        // Initialize when components are loaded
-        document.addEventListener('componentsLoaded', function() {
-            // Hide loading indicator
-            const loadingIndicator = document.getElementById('loading-indicator');
-            if (loadingIndicator) {
-                loadingIndicator.style.display = 'none';
-            }
-            
-            // Initialize sidebar and navigation
-            if (typeof initSidebar === 'function') initSidebar();
-            if (typeof initNavigation === 'function') initNavigation();
-            
-            console.log('🎉 Projects page initialized successfully!');
-        });
-    </script>
 </body>
 </html>

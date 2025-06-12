@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!--*****************************************************
+
+GEOG 414: Programming for Geospatial Data Science II
+Unit 4 Assignment: Mapping Inequality with D3
+
+Your Unit 4 assignment requires that you use the D3.js vector graphics library to generate linked maps and charts associated with data related to income and income inequality.  Your submission must contain at least one map and one accompanying data visualization.
+
+Add your work directly to this document, and once complete, submit to the course website for grading.
+
+*****************************************************-->
+<html>
+<head>
+  <title>Evolution of Income and Income Equality: 1800 to 2010</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Nic Dutch">
+</head>
+<!-- TODO: Import stylesheets for Bootstrap and C3 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.css" integrity="sha512-GQSxWe9Cj4o4EduO7zO9HjULmD4olIjiQqZ7VJuwBxZlkWaUFGCxRkn39jYnD2xZBtEilm0m4WBG7YEmQuMs5Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style>
+/* TODO: Fill in any necessary CSS styles here */
+g.countries path:hover {
+	fill: yellow;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js" integrity="sha512-FHsFVKQ/T1KWJDGSbrUhTJyS1ph3eRrxI228ND0EGaEp6v4a/vGwPWd3Dtd/+9cI7ccofZvl/wulICEurHN1pg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-geo-projection/2.4.0/d3-geo-projection.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js" integrity="sha512-+IpCthlNahOuERYUSnKFjzjdKXIbJ/7Dd6xvUp+7bEw0Jp2dg6tluyxLs+zq9BMzZgrLv8886T4cBSqnKiVgUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://colorbrewer2.org/export/colorbrewer.js"></script>
+<!-- TODO: Import countries GeoJSON, income data, and inequality data (using variable declarations in the files) -->
+ <script src="data/world-110m.js"></script>
+ <script src="data\inequality.js"></script>
+ <script src="data\income.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Evolution of Income and Income Equality: 1800 to 2010</h1>
+    <h2 class="text-muted">MAGIST: GEOG 414 Unit 3 Project</h2>
+    
+<div class="container">
+	<div class="page-header"><h4>By Nic Dutch</h4></div>
+	<h6>Exploring Economic Data Aggregated by the <a href="https://www.gapminder.org/">Gapminder</a> Project</h6>
+	<hr/>
+<!-- TODO: Create page layout container with controls for variable and year selection -->
+	<div class="row">
+		<div class="col">
+			<label for="selectdata" class="form-label">Data Variable</label>
+			<select id="selectdata" class="form-select" aria-label="Data Variable Selection" onchange="draw()">
+				<option value="income">Income</option>
+				<option value="gini">Income Inequality</option>
+			</select>
+		</div>
+		<div class="col">
+			<label for="selectyear" class="form-label">Data Year (<span id="year">2010</span>)</label>
+			<input type="range" class="form-range" min="1800" max="2010" value="2010" id="selectyear" onchange="draw()">
+		</div>
+	</div>
+	<hr/>
+	<div class="row">
+		<div class="col">
+			<h5 id="country">Hover over a country...</h5>
+			<div id="timeseries"></div>
+		</div>
+		<div class="col">
+			<svg id="map" width="800" height="500"></svg>
+			<div id="legend" class="mt-3"></div>
+		</div>
+    
+	</div>
+    <div class="row mt-4">
+    <div class="col">
+        <label for="country1" class="form-label">Select Country 1</label>
+        <select id="country1" class="form-select" onchange="updateScatterPlot()">
+            <option value="">Select a country...</option>
+        </select>
+    </div>
+    <div class="col">
+        <label for="country2" class="form-label">Select Country 2</label>
+        <select id="country2" class="form-select" onchange="updateScatterPlot()">
+            <option value="">Select a country...</option>
+        </select>
+    </div>
+</div>
+    <div class="row mt-4">
+    <div class="col">
+        <h5>Bivariate Scatter Plot: Income vs Inequality (<span id="scatter-year">2010</span>)</h5>
+        <div id="scatterplot"></div>
+        
+        <!-- Add vertical space with mt-4 or similar class -->
+        <div class="mt-4"></div>
+        
+        <div class="mt-3 p-3 bg-light border rounded">
+            <h5>Scatter Plot Explanation</h5>
+            <p>
+                This scatter plot compares income and inequality across countries. Hover over individual points for details. Use the controls above to change variables or select different years.
+                <br/><br/>
+                Note that:
+                The <a href="https://www.gapminder.org/data/documentation/gini/" target="_blank" rel="noopener noreferrer">Gini index</a> quantifies income distribution within a population. It measures how much the observed distribution of income deviates from a perfectly equal distribution, where everyone has the same income. 
+                A Gini index of 0 (or 0%) indicates perfect equality, meaning everyone in the population has the same income.
+                A Gini index of 1 (or 100%) indicates perfect inequality, meaning one person or household receives all the income, and everyone else receives none.
+                Most countries have a Gini index somewhere around 0.4, indicating some level of inequality.
+            </p>
+        </div>
+    </div>
+    </div>
+<script>
+
+// TODO: Declare global variables to store current variable and year
+let selected_variable = 'income';
+let selected_year = 2010;
+
+// TODO: Create nested object to store variable information (map category breaks and legend labels)
+const resources = {
+	"income": {
+		'domain': [0, 2500, 5000, 10000, 50000, 75000],
+		'labels': ['< $2,500', '$2,500 to $5,000', '$5,000 to $10,000', '$10,000 to $50,000', '$50,000 to $75,000', '> $75,000'],
+		'legend_label': 'Personal Income (2011 U.S. dollars)'
+	},
+	"gini": {
+		'domain': [0, 10, 20, 30, 40, 50],
+		'labels': ['0 to 10', '10 to 20', '20 to 30', '30 to 40', '40 to 50', '> 50'],
+		'legend_label': 'Gini Coefficient'
+	}
+}
+// TODO: Create object containing an empty object for "income" and "gini" data
+let data = {
+	"income": {},
+	"gini": {}
+}
+// TODO: Process income data such that each country has its own Map object containing income values for each year
+for (const i in income) {
+	let e = income[i];
+	if (typeof data['income'][e.geo] == 'undefined') data['income'][e.geo] = new Map();
+	data['income'][e.geo].set(e.time, e.income);
+}
+// TODO: Process inequality data such that each country has its own Map object containing Gini coefficient values for each year
+for (const i in gini) {
+	let e = gini[i];
+	if (typeof data['gini'][e.geo] == 'undefined') data['gini'][e.geo] = new Map();
+	data['gini'][e.geo].set(e.time, e.gini);
+}
+// TODO: Create function to retrieve fill color for map features (use ColorBrewer and the legend breaks stored in one of the above-mentioned objects)
+function fillColor(value) {
+	let scale;
+	if (selected_variable == 'income') scale = colorbrewer['Greens'][6];
+	else scale = colorbrewer['Purples'][6];
+
+	const breaks = resources[selected_variable].domain;
+
+	if (value == null || isNaN(value)) return "#ccc";
+	for (let i = breaks.length - 1; i >=0; i--) {
+		if (value >= breaks[i]) return scale[i];
+	}
+	return scale[0]
+}
+// TODO: Create function to draw chart(s) using C3.js\
+function drawTimeseries(d) {
+	// TODO: Process data so that we end up with (1) an array of years, and (2) an array of values for our selected variable
+	let line_keys = Array.from( data[selected_variable][d.id].keys() );
+	let line_data = Array.from( data[selected_variable][d.id].values() )
+	// TODO: Add items at beginning of arrays to provide axis/chart labels
+	line_keys.unshift("x");
+	line_data.unshift(resources[selected_variable]["legend_label"]);
+	// TODO: Create chart(s) using sample syntax from C3.js documentation
+	let timeseries = c3.generate({
+		bindto: "#timeseries",
+		data: {
+			x: 'x',
+			columns: [
+				line_keys,
+				line_data
+			]
+		}
+	});
+}
+// TODO: Create function to draw map and trigger drawing of chart on mouseover
+function draw() {
+	// TODO: Get values of variable and year selection UI elements and add year to appropriate UI label
+	let dataSelect = document.getElementById("selectdata");
+	selected_variable = dataSelect.options[dataSelect.selectedIndex].value;
+	let yearSelect = document.getElementById("selectyear");
+	selected_year = Number(yearSelect.value);
+	document.getElementById("year").innerHTML = selected_year;
+
+	// TODO: Select SVG object with D3; specify width and height of 800 and 500 respectively
+	let svg = d3.select("#map");
+	let width = 800;
+	let height = 500;
+
+	// Clear previous path
+	svg.selectAll("g").remove();
+
+	// TODO: Define Natural Earth compromise projection for map
+	let projection = d3.geoNaturalEarth1()
+		.scale(width / 2 / Math.PI)
+		.translate([width / 2, height / 2]);
+	// TODO: Create D3 geoPath object with projection assigned
+	let path = d3.geoPath().projection(projection);
+
+	// TODO: Append group ("g") to SVG and set attributes
+	svg.append("g")
+		.attr("class", "countries")
+		.attr("transform", "translate(-50,0)")
+		// TODO: Select all "path" objects and bind GeoJSON features
+		.selectAll("path")
+		.data(countries.features)
+		.enter()
+		.append("path")
+			// TODO: Specify stroke and fill attributes
+			.attr("fill", function(d) {
+				if (data[selected_variable][d.id] instanceof Map) return fillColor(data[selected_variable][d.id].get(selected_year));
+				else return "#aaa";
+			})
+			.attr("stroke", "#444")
+			.attr("stroke-width", 0.3)
+			// TODO: Create mouseover function that triggers drawing of line chart for country that is target of mouseover event
+			.on("mouseover", function(d) {
+				document.getElementById("country").innerHTML = d.properties.name;
+				drawTimeseries(d);
+			})
+			 // TODO: Assign path to "d" attribute
+			 .attr("d", path);
+	drawLegend();
+}
+// Legend
+function drawLegend() {
+  const legendDiv = document.getElementById('legend');
+  legendDiv.innerHTML = ''; // Clear previous legend
+
+  const scale = selected_variable === 'income' ? colorbrewer['Greens'][6] : colorbrewer['Purples'][6];
+  const breaks = resources[selected_variable].domain;
+  const labels = resources[selected_variable].labels;
+
+  // Create legend items (color box + label)
+  for (let i = 0; i < labels.length; i++) {
+    const colorBox = document.createElement('span');
+    colorBox.style.display = 'inline-block';
+    colorBox.style.width = '20px';
+    colorBox.style.height = '20px';
+    colorBox.style.backgroundColor = scale[i] || '#ccc';
+    colorBox.style.marginRight = '8px';
+    colorBox.style.border = '1px solid #000';
+    colorBox.style.verticalAlign = 'middle';
+
+    const labelText = document.createElement('span');
+    labelText.textContent = labels[i];
+    labelText.style.marginRight = '15px';
+    labelText.style.verticalAlign = 'middle';
+
+    const legendItem = document.createElement('div');
+    legendItem.style.display = 'inline-block';
+    legendItem.style.marginRight = '15px';
+    legendItem.appendChild(colorBox);
+    legendItem.appendChild(labelText);
+
+    legendDiv.appendChild(legendItem);
+  }
+}
+
+// Bivariate Scatter Plot
+let scatterChart;
+
+function drawScatterPlot(year) {
+  document.getElementById("scatter-year").textContent = year;
+
+  const points = [];
+
+  for (const country in data['income']) {
+    if (
+      data['income'][country] instanceof Map &&
+      data['gini'][country] instanceof Map
+    ) {
+      const incomeVal = data['income'][country].get(year);
+      const giniVal = data['gini'][country].get(year);
+
+      // Find the feature for country name
+      const cFeature = countries.features.find(f => f.id === country);
+
+      console.log('Processing country:', country);
+      if (cFeature) {
+        console.log('Found feature:', cFeature);
+      } else {
+        console.log('No feature found for country:', country);
+      }
+
+      // Get country name
+      let countryName = country;
+      if (cFeature && cFeature.properties && cFeature.properties.name) {
+        countryName = cFeature.properties.name;
+      } else {
+        console.log('Missing name for country ID:', country);
+      }
+
+      // Log the assigned name
+      console.log('Assigned name:', countryName);
+
+      if (
+        incomeVal !== null &&
+        incomeVal !== undefined &&
+        giniVal !== null &&
+        giniVal !== undefined &&
+        !isNaN(incomeVal) &&
+        !isNaN(giniVal)
+      ) {
+        points.push({
+          id: country,
+          name: countryName,
+          income: incomeVal,
+          gini: giniVal
+        });
+      }
+    }
+  }
+
+  const incomeCol = ['Income', ...points.map(d => d.income)];
+  const giniCol = ['Inequality', ...points.map(d => d.gini)];
+
+  if (!scatterChart) {
+    scatterChart = c3.generate({
+      bindto: '#scatterplot',
+      size: { height: 400, width: 900 },
+      data: {
+        xs: {
+          Inequality: 'Income'
+        },
+        columns: [incomeCol, giniCol],
+        type: 'scatter',
+        empty: {
+          label: { text: 'No data to display' }
+        }
+      },
+      axis: {
+        x: {
+          label: 'Income (2011 U.S. dollars)',
+          tick: { format: d3.format("$,") },
+          min: 0
+        },
+        y: {
+          label: 'Gini Coefficient',
+          min: 0,
+          max: 60
+        }
+      },
+      tooltip: {
+        contents: function (d) {
+          const id = d[0].id || '';
+          const incomeVal = d[0].x;
+          const giniVal = d[0].value;
+          const name = d[0].name || id;
+
+          console.log('Tooltip d object:', d);
+          
+          return `<table class="c3-tooltip">
+            <tr><th colspan="2">${name}</th></tr>
+            <tr><td>Name:</td><td>${name}</td></tr>
+            <tr><td>Income:</td><td>${d3.format("$,.0f")(incomeVal)}</td></tr>
+            <tr><td>Gini:</td><td>${d3.format(".1f")(giniVal)}</td></tr>
+          </table>`;
+        }
+      },
+      point: { r: 4 }
+    });
+  } else {
+    scatterChart.load({ columns: [incomeCol, giniCol] });
+  }
+}
+
+
+// Function to select country for scatter plot
+function populateCountrySelect() {
+  const select1 = document.getElementById('country1');
+  const select2 = document.getElementById('country2');
+  select1.innerHTML = '<option value="">Select a country...</option>';
+  select2.innerHTML = '<option value="">Select a country...</option>';
+
+  countries.features.forEach(feature => {
+    const option1 = document.createElement('option');
+    option1.value = feature.id;
+    option1.textContent = feature.properties.name;
+    select1.appendChild(option1);
+
+    const option2 = option1.cloneNode(true);
+    select2.appendChild(option2);
+  });
+}
+
+// Function to update scatter plot based on selection
+function updateScatterPlot() {
+    const country1 = document.getElementById('country1').value;
+    const country2 = document.getElementById('country2').value;
+    const year = selected_year;
+
+    const points = [];
+    [country1, country2].forEach(countryId => {
+        if (countryId) {
+            const incomeVal = data['income'][countryId]?.get(year);
+            const giniVal = data['gini'][countryId]?.get(year);
+            const cFeature = countries.features.find(f => f.id === countryId);
+            const name = cFeature ? cFeature.properties.name : countryId;
+            if (incomeVal !== undefined && giniVal !== undefined) {
+                points.push({ id: countryId, name: name, income: incomeVal, gini: giniVal });
+            }
+        }
+    });
+
+    const incomeCol = ['Income', ...points.map(d => d.income)];
+    const giniCol = ['Inequality', ...points.map(d => d.gini)];
+    if (scatterChart) {
+        scatterChart.load({ columns: [incomeCol, giniCol] });
+    }
+}
+
+// Fill in selection 
+populateCountrySelect();
+
+// TODO: Trigger draw() function to initialize map
+draw();
+drawScatterPlot(selected_year);
+</script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reforestation Sampling Method Simulator</title>
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    
+    <!-- Local Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Reforestation Sampling Method Simulator</h1>
+            <p>Interactive tool for comparing forest inventory sampling methods and spatial tree patterns</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- Controls Panel -->
+            <div class="panel">
+                <h3> Site Parameters</h3>
+                
+                <div class="form-group">
+                    <label for="acres">Total Acres</label>
+                    <input type="number" id="acres" value="1" min="0.1" max="10" step="0.1">
+                    <div class="info-box">
+                        Area: <strong><span id="area-display">4,047 m²</span></strong>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="target-tpa">Target Trees Per Acre</label>
+                    <input type="number" id="target-tpa" value="150" min="50" max="400" step="10">
+                </div>
+
+                <div class="form-group">
+                    <label>Tree Planting Pattern</label>
+                    <div class="toggle-group">
+                        <button type="button" class="toggle-btn active" id="grid-btn">Grid</button>
+                        <button type="button" class="toggle-btn" id="cluster-btn">Cluster</button>
+                    </div>
+                </div>
+
+                <!-- Grid Controls -->
+                <div id="grid-controls">
+                    <div class="form-group">
+                        <label for="tree-spacing">Tree Spacing (m)</label>
+                        <input type="number" id="tree-spacing" value="5" min="2" max="12" step="0.5">
+                    </div>
+                    <div class="form-group">
+                        <label for="row-spacing">Row Spacing (m)</label>
+                        <input type="number" id="row-spacing" value="5" min="2" max="12" step="0.5">
+                    </div>
+                </div>
+
+                <!-- Cluster Controls -->
+                <div id="cluster-controls" style="display: none;">
+                    <div class="form-group">
+                        <label for="triangle-spacing">Triangle Spacing (m)</label>
+                        <input type="number" id="triangle-spacing" value="2.4" min="1" max="5" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="cluster-spacing">Cluster Spacing (m)</label>
+                        <input type="number" id="cluster-spacing" value="10" min="5" max="20" step="0.5">
+                    </div>
+                </div>
+
+                <button class="btn" id="generate-trees"> Generate Trees</button>
+
+                <h3 style="margin-top: 30px;">Sampling Design</h3>
+                
+                <div class="form-group">
+                    <label for="sample-intensity">Sample Intensity (%)</label>
+                    <input type="number" id="sample-intensity" value="10" min="1" max="25" step="0.5">
+                </div>
+
+                <div class="form-group">
+                    <label>Sampling Method</label>
+                    <div class="toggle-group">
+                        <button type="button" class="toggle-btn active" id="radius-btn">Radius Plot</button>
+                        <button type="button" class="toggle-btn" id="belt-btn">Belt Transect</button>
+                    </div>
+                </div>
+
+                <!-- Radius Controls -->
+                <div id="radius-controls">
+                    <div class="form-group">
+                        <label for="plot-radius">Plot Radius (m)</label>
+                        <input type="number" id="plot-radius" value="3.5" min="1" max="8" step="0.1">
+                    </div>
+                </div>
+
+                <!-- Belt Controls -->
+                <div id="belt-controls" style="display: none;">
+                    <div class="form-group">
+                        <label for="belt-width">Belt Width (m)</label>
+                        <input type="number" id="belt-width" value="6" min="2" max="12" step="0.5">
+                    </div>
+                    <div class="form-group">
+                        <label for="belt-length">Belt Length (m)</label>
+                        <input type="number" id="belt-length" value="30" min="10" max="50" step="5">
+                    </div>
+                </div>
+
+                <button class="btn" id="generate-sampling">📍 Generate Sample Plots</button>
+            </div>
+
+            <!-- Map Visualization -->
+            <div class="panel">
+                <h3>Forest Plot Visualization</h3>
+                <div style="position: relative;">
+                    <div id="map"></div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #2d5a27;"></div>
+                            <span>Planted Trees</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: red; border-radius: 0; width: 15px; height: 2px;"></div>
+                            <span>Sample Plots</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: black; border-radius: 0; width: 15px; height: 2px;"></div>
+                            <span>Plot Boundary</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <strong>Interactive Map:</strong> Zoom and pan to explore the forest plot. 
+                    Numbers in sample plots show tree counts.
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="panel">
+                <h3>Results Summary</h3>
+                
+                <div class="stat-card">
+                    <div class="stat-value" id="total-trees">0</div>
+                    <div class="stat-label">Total Trees Planted</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="actual-tpa">0</div>
+                    <div class="stat-label">Actual TPA</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="num-plots">0</div>
+                    <div class="stat-label">Sample Plots Generated</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="expansion-factor">0</div>
+                    <div class="stat-label">Expansion Factor</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="estimated-tpa">0</div>
+                    <div class="stat-label">Estimated TPA</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="accuracy">0%</div>
+                    <div class="stat-label">Sampling Accuracy</div>
+                </div>
+
+                <div class="info-box">
+                    <strong>Formula:</strong><br>
+                    Estimated TPA = Trees per plot × Expansion factor<br><br>
+                    <strong>Expansion Factor:</strong><br>
+                    c = 4,046.86 ÷ Plot area (m²)<br>
+                    Expansion factor = c ÷ Number of plots
+                </div>
+            </div>
+        </div>
+
+        <!-- Methodology Section -->
+        <div class="methodology">
+            <h2> Methodology & Background</h2>
+            
+            <p>
+                This simulator demonstrates the comparison between two common forest inventory sampling methods:
+                <strong>fixed-radius plots</strong> and <strong>belt transects</strong>. Both methods are used to estimate 
+                trees per acre (TPA) in forest stands, but they capture spatial variability differently.
+            </p>
+
+            <h3> Sampling Methods</h3>
+            <p>
+                <strong>Fixed-Radius Plots:</strong> Circular plots where all trees within a specified radius are counted. 
+                Common in forest inventory due to their efficiency and ease of implementation in the field.
+            </p>
+            
+            <p>
+                <strong>Belt Transects:</strong> Rectangular strips where trees within the belt width and length are counted. 
+                Often used for detecting linear patterns or edge effects in forest stands.
+            </p>
+
+            <h3>📐 Expansion Factor Calculation</h3>
+            <div class="formula">c = 4,046.86 ÷ Individual plot area (m²)
+Expansion Factor = c ÷ Number of plots
+Estimated TPA = Mean trees per plot × Expansion Factor</div>
+
+            <h3>Tree Patterns</h3>
+            <p>
+                <strong>Grid Pattern:</strong> Regular spacing between trees and rows, simulating mechanical planting operations.
+                This pattern typically provides the most uniform distribution.
+            </p>
+            
+            <p>
+                <strong>Cluster Pattern:</strong> Trees planted in triangular groups with spacing between clusters, 
+                simulating natural regeneration or targeted planting strategies.
+            </p>
+
+            <h3>Research Applications</h3>
+            <p>
+                This tool helps forest managers and researchers understand how different spatial patterns affect 
+                sampling accuracy and which sampling method provides better estimates under various conditions. 
+                The simulator uses realistic forestry calculations and follows standard inventory practices.
+            </p>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    
+    <!-- Local JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>GEOG 414 Unit 2 Symbol Map Assignment</title>
+    <!-- Nic Dutch -->
+    <!-- TO DO: Import Bootstrap (first), Leaflet (second), and ColorBrewer (third) if needed -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+    <style>
+        /* TO DO: Write custom CSS for map and legend as needed */
+        #map {
+            height: 600px;
+        }
+        .legend {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        .elevation-info {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        .legend i {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- TO DO: Create single-column Bootstrap layout -->
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1>Interactive Map of The Capricorn's Trail - Switzerland</h1>
+                <h5>Explore points of interest along the bike route!</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TO DO: Outside the container, create the structure of the legend -->
+    <div id="legend" class="legend">
+        <h4>Legend</h4>
+        <i style="background: #FFD700"></i> Campground<br/>
+        <i style="background: #00FF00"></i> Water Source<br/>
+        <i style="background: #FF0000"></i> Restaurant<br/>
+        <i style="background: #0000FF"></i> Viewpoint<br/>
+        <i style="background: #FF00FF"></i> Shelter<br/>
+    </div>
+
+    <!-- Elevation Size Explanation -->
+    <div class="elevation-info">
+        <h5>Marker Size Explanation</h5>
+        <p>The size of each marker represents the elevation gain:</p>
+        <ul>
+            <li><strong>Large markers</strong>: Significant elevation gain (> 100 meters)</li>
+            <li><strong>Medium markers</strong>: Moderate elevation gain (50 - 100 meters)</li>
+            <li><strong>Small markers</strong>: Low elevation gain (≤ 50 meters)</li>
+        </ul>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script type="text/javascript">
+// TO DO: Add GeoJSON data layer
+		var geojsonFeature = {
+			"type": "FeatureCollection",
+			"name": "waypoints",
+			"features": [
+            {
+            "type": "Feature",
+            "properties": {
+                "name": "Railwaystation Davos-Platz",
+                "sym": "Dot",
+                "type": "Viewpoint",
+                "elevationGain": 0,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.8203611, 46.7915099]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Bergrestaurant Jatzmeder",
+                "cmt": "+41 81 417 00 40",
+                "desc": "+41 81 417 00 40",
+                "sym": "Dot",
+                "type": "Restaurant",
+                "elevationGain": 100,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.8028088, 46.744419]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Hauderalp",
+                "sym": "Dot",
+                "type": "Shelter",
+                "elevationGain": 50,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.779827, 46.7167936]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sertig Sand",
+                "cmt": "drinking Water",
+                "desc": "drinking Water",
+                "sym": "Dot",
+                "type": "Water Source",
+                "elevationGain": 20,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.8484492, 46.7208949]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Chants",
+                "cmt": "drinking water",
+                "desc": "drinking water",
+                "sym": "Dot",
+                "type": "Water Source",
+                "elevationGain": 30,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.8281175, 46.6456638]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Restaurant Chants",
+                "cmt": "No electricity - no ice cream ;-)",
+                "desc": "No electricity - no ice cream ;-)",
+                "sym": "Dot",
+                "type": "Restaurant",
+                "elevationGain": 40,
+                "elevationLoss": 10
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.8276353, 46.6457241]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Alp digl Chants",
+                "cmt": "drinking water",
+                "desc": "drinking water",
+                "sym": "Dot",
+                "type": "Water Source",
+                "elevationGain": 20,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.8319357, 46.6382067]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Val da Stugl",
+                "cmt": "after Alp da Stugl lots of nice campingspots. Leave no trace!",
+                "desc": "after Alp da Stugl lots of nice campingspots. Leave no trace!",
+                "sym": "Dot",
+                "type": "Campground",
+                "elevationGain": 100,
+                "elevationLoss": 50
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.7863722, 46.6640756]
+            }
+        },        {
+            "type": "Feature",
+            "properties": {
+                "name": "Alp As-cha",
+                "cmt": "Camping spot - leave no trace!",
+                "desc": "Camping spot - leave no trace!",
+                "sym": "Dot",
+                "type": "Campground",
+                "elevationGain": 75,
+                "elevationLoss": 20
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.8519468, 46.6116851]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Restaurant Walserhuus",
+                "sym": "Dot",
+                "type": "Restaurant",
+                "elevationGain": 50,
+                "elevationLoss": 5
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.8495972, 46.7206522]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Chamanna d'Es-cha",
+                "cmt": "Alpine Hut: Restaurant, lodging",
+                "desc": "Alpine Hut: Restaurant, lodging",
+                "sym": "Dot",
+                "type": "Shelter",
+                "elevationGain": 80,
+                "elevationLoss": 10
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9028444, 46.6114714]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Chamanna d'Es-cha",
+                "cmt": "drinking water",
+                "desc": "drinking water",
+                "sym": "Dot",
+                "type": "Water Source",
+                "elevationGain": 15,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9029615, 46.6113708]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Zuoz",
+                "cmt": "drinking water",
+                "desc": "drinking water",
+                "sym": "Dot",
+                "type": "Water Source",
+                "elevationGain": 20,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9580336, 46.602118]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Volg Zuoz",
+                "sym": "Dot",
+                "type": "Restaurant",
+                "elevationGain": 10,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9587631, 46.6030173]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Coop Zuoz",
+                "sym": "Dot",
+                "type": "Restaurant",
+                "elevationGain": 5,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9606997, 46.599936]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Zuoz",
+                "cmt": "There are many Hotels in Zuoz",
+                "desc": "There are many Hotels in Zuoz",
+                "sym": "Dot",
+                "type": "Campground",
+                "elevationGain": 0,
+                "elevationLoss": 5
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9592996, 46.6020295]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Alp Funtauna",
+                "cmt": "drinking water",
+                "desc": "drinking water",
+                "sym": "Dot",
+                "type": "Water Source",
+                "elevationGain": 30,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9184656, 46.6724908]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Camping Chapella",
+                "sym": "Dot",
+                "type": "Campground",
+                "elevationGain": 40,
+                "elevationLoss": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [10.0146818, 46.6323026]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Berggasthaus Dürrboden",
+                "sym": "Dot",
+                "type": "Shelter",
+                "elevationGain": 60,
+                "elevationLoss": 5
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9217133, 46.72108]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Shelter Scalettapass",
+                "cmt": "Basic shelter on top of Scalettapass",
+                "desc": "Basic shelter on top of Scalettapass",
+                "sym": "Dot",
+                "type": "Shelter",
+                "elevationGain": 120,
+                "elevationLoss": 15
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9202601, 46.6926935]
+            }
+        }
+
+	]
+	};
+       // Return fill color for symbols based on waypoint type
+function getColor(feature) {
+    switch (feature.properties.type) {
+        case 'Campground':
+            return '#FFD700'; // Gold for campgrounds
+        case 'Water Source':
+            return '#00FF00'; // Green for water sources
+        case 'Restaurant':
+            return '#FF0000'; // Red for restaurants
+        case 'Viewpoint':
+            return '#0000FF'; // Blue for viewpoints
+        case 'Shelter':
+            return '#FF00FF'; // Magenta for shelters
+        default:
+            return '#000000'; // Black for unknown types
+    }
+}
+
+        // Return radius (in pixels) for symbols based on elevation gain/loss
+        function getRadius(feature) {
+            // Calculate a radius based on elevation gain
+            let elevationGain = feature.properties.elevationGain;
+            if (elevationGain > 100) {
+                return 12; // Larger radius for more significant elevation gain
+            } else if (elevationGain > 50) {
+                return 10; // Medium radius for moderate elevation gain
+            }
+            return 8; // Default radius for low elevation gain
+        }
+
+        // Initialize the map with an appropriate center and zoom level
+        var map = L.map('map').setView([46.75, 9.8], 10);
+
+        // Add multiple basemap options
+        var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        });
+        
+        var topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: '© OpenTopoMap (CC-BY-SA)'
+        });
+        
+        var satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: '© Esri'
+        });
+
+        // Add default layer
+        osmLayer.addTo(map);
+        
+        // Create layer control
+        var baseLayers = {
+            "OpenStreetMap": osmLayer,
+            "Topographic": topoLayer,
+            "Satellite": satelliteLayer
+        };
+        
+        L.control.layers(baseLayers).addTo(map);
+
+        // Enhanced popup content
+        function createPopupContent(feature) {
+            let content = '<b>' + feature.properties.name + '</b><br/>';
+            content += 'Type: ' + feature.properties.type + '<br/>';
+            content += 'Elevation Gain: ' + feature.properties.elevationGain + 'm<br/>';
+            if (feature.properties.elevationLoss > 0) {
+                content += 'Elevation Loss: ' + feature.properties.elevationLoss + 'm<br/>';
+            }
+            if (feature.properties.cmt) {
+                content += 'Notes: ' + feature.properties.cmt;
+            }
+            return content;
+        }
+
+        // Add GeoJSON data layer
+        var wayPointsLayer = L.geoJSON(geojsonFeature, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: getRadius(feature), // Use new radius function based on elevation
+                    fillColor: getColor(feature), // Use new color function based on waypoint type
+                    color: "#000", // Outline color
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).bindPopup(createPopupContent(feature)).bindTooltip(feature.properties.name + ': ' + (feature.properties.cmt || '') + ' ' + (feature.properties.desc || ''));
+            }
+        }).addTo(map);
+
+        // Fit map bounds to show all points with some padding
+        map.fitBounds(wayPointsLayer.getBounds(), {padding: [20, 20]});
+
+        // Create new Leaflet control for the legend
+        var legend = L.control({position: 'bottomright'});
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend');
+            div.innerHTML = document.getElementById('legend').innerHTML; // Get legend content from DOM
+            return div;
+        };
+        legend.addTo(map);
+
+        // Add scale control
+        L.control.scale({
+            metric: true,
+            imperial: false,
+            position: 'bottomleft'
+        }).addTo(map);
+    </script>
+</body>
+</html>

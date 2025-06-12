@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Projects - Nic Dutch</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Component Loader -->
+    <script src="js/components/component-loader.js"></script>
+</head>
+<body>
+
+    <!-- Mobile Toggle Button -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>{{author}}</h3>
+            <p>Geospatial Ecologist</p>
+            <p class="sidebar-subtitle">{{position}} | {{institution}}</p>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="sidebar-search">
+            <div class="search-container">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search projects..." id="projectSearch">
+                <button class="search-clear" id="searchClear">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            
+            <!-- Programming Filter Tags -->
+            <div class="filter-tags">
+                <span class="filter-tag active" data-filter="all">All</span>
+                <span class="filter-tag" data-filter="python">Python</span>
+                <span class="filter-tag" data-filter="javascript">JavaScript</span>
+                <span class="filter-tag" data-filter="web">Web Dev</span>
+                <span class="filter-tag" data-filter="gis">GIS Tools</span>
+                <span class="filter-tag" data-filter="data">Data Analysis</span>
+            </div>
+        </div>
+        
+        <ul class="sidebar-nav nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="bi bi-house"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html#research">
+                    <i class="bi bi-tree"></i>
+                    <span>Research Focus</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="projects.html">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>All Projects</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="programming.html">
+                    <i class="bi bi-code-slash"></i>
+                    <span>Programming</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html#skills">
+                    <i class="bi bi-cpu"></i>
+                    <span>Technical Skills</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html#contact">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Top Social Bar -->
+    <div class="top-social-bar">
+        <div class="social-links">
+            <a href="mailto:{{email}}" class="social-link">
+                <i class="bi bi-envelope-fill"></i>
+                <span>{{email}}</span>
+            </a>
+            <a href="{{github}}" target="_blank" class="social-link">
+                <i class="bi bi-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="{{linkedin}}" target="_blank" class="social-link">
+                <i class="bi bi-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+            <a href="{{orcid}}" target="_blank" class="social-link">
+                <i class="bi bi-person-badge"></i>
+                <span>ORCID</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Programming Header Section -->
+        <section class="projects-header">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-custom">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <i class="bi bi-house-fill me-1"></i>Home
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="projects.html">Projects</a>
+                        </li>
+                        <li class="breadcrumb-item active">Programming</li>
+                    </ol>
+                </nav>
+                
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="header-title">
+                            <i class="bi bi-code-slash me-3"></i>Programming Projects
+                        </h1>
+                        <p class="header-subtitle mb-0">Web development, data analysis, and geospatial programming solutions</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <div class="header-stats">
+                            <span class="stat-pill">
+                                <i class="bi bi-collection-fill me-1"></i>
+                                5 Projects
+                            </span>
+                            <span class="stat-pill">
+                                <i class="bi bi-code-square me-1"></i>
+                                Programming
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programming Projects Content -->
+        <section class="projects-content">
+            <div class="container">
+                <div class="row">
+                    <!-- Project 1: Unit 1 -->
+                    <div class="col-lg-6 col-xl-4 mb-4">
+                        <div class="card project-card h-100" data-tags="python data analysis dashboard">
+                            <div class="project-image programming-bg">
+                                <i class="bi bi-graph-up project-icon"></i>
+                                <div class="project-overlay">
+                                    <span class="project-status completed">Live</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-header">
+                                    <h5 class="card-title">GEOG 414 - Unit 1</h5>
+                                    <div class="project-location">
+                                        <i class="bi bi-calendar"></i> 2024
+                                    </div>
+                                </div>
+                                <p class="card-text">Introduction to web programming and basic HTML/CSS fundamentals via game-like functions.</p>
+                                <div class="project-badges">
+                                    <span class="badge bg-primary">HTML</span>
+                                    <span class="badge bg-info">CSS</span>
+                                    <span class="badge bg-success">Web Dev</span>
+                                    <span class="badge bg-warning">GEOG 414</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <a href="projects/geog414/unit1/index.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View Project
+                                    </a>
+                                    <a href="https://github.com/yourusername/geog414-unit1" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-github"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Unit 2 -->
+                    <div class="col-lg-6 col-xl-4 mb-4">
+                        <div class="card project-card h-100" data-tags="javascript web gis mapping">
+                            <div class="project-image gis-bg">
+                                <i class="bi bi-map project-icon"></i>
+                                <div class="project-overlay">
+                                    <span class="project-status completed">Live</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-header">
+                                    <h5 class="card-title">GEOG 414 - Unit 2</h5>
+                                    <div class="project-location">
+                                        <i class="bi bi-calendar"></i> 2024
+                                    </div>
+                                </div>
+                                <p class="card-text"> Working with GEOGJSON files for ineractive web mapping</p>
+                                <div class="project-badges">
+                                    <span class="badge bg-warning">JavaScript</span>
+                                    <span class="badge bg-success">GEOGJSON</span>
+                                    <span class="badge bg-danger">Interactive</span>
+                                    <span class="badge bg-info">GEOG 414</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <a href="projects/geog414/unit2/index.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View Project
+                                    </a>
+                                    <a href="https://github.com/yourusername/geog414-unit2" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-github"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Unit 3 -->
+                    <div class="col-lg-6 col-xl-4 mb-4">
+                        <div class="card project-card h-100" data-tags="python automation gis data">
+                            <div class="project-image automation-bg">
+                                <i class="bi bi-gear-fill project-icon"></i>
+                                <div class="project-overlay">
+                                    <span class="project-status completed">Complete</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-header">
+                                    <h5 class="card-title">GEOG 414 - Unit 3</h5>
+                                    <div class="project-location">
+                                        <i class="bi bi-calendar"></i> 2024
+                                    </div>
+                                </div>
+                                <p class="card-text">Working with Leaflet and Geoserver</p>
+                                <div class="project-badges">
+                                    <span class="badge bg-primary">JavaScript</span>
+                                    <span class="badge bg-secondary">Leaflet</span>
+                                    <span class="badge bg-info">Geoserver</span>
+                                    <span class="badge bg-success">GEOG 414</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <a href="projects/geog414/unit3/index.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View Project
+                                    </a>
+                                    <a href="https://github.com/yourusername/geog414-unit3" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-github"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: Unit 4 -->
+                    <div class="col-lg-6 col-xl-4 mb-4">
+                        <div class="card project-card h-100" data-tags="javascript react web portfolio">
+                            <div class="project-image react-bg">
+                                <i class="bi bi-code-slash project-icon"></i>
+                                <div class="project-overlay">
+                                    <span class="project-status in-progress">Active</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-header">
+                                    <h5 class="card-title">GEOG 414 - Unit 4</h5>
+                                    <div class="project-location">
+                                        <i class="bi bi-calendar"></i> 2024
+                                    </div>
+                                </div>
+                                <p class="card-text">GeoJSON and Anayltics with D3</p>
+                                <div class="project-badges">
+                                    <span class="badge bg-info">Leaflet.js</span>
+                                    <span class="badge bg-primary">Geospatial Statistics</span>
+                                    <span class="badge bg-warning">D3</span>
+                                    <span class="badge bg-success">GEOG 414</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <a href="projects/geog414/unit4/index.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View Project
+                                    </a>
+                                    <a href="https://github.com/yourusername/geog414-unit4" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-github"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 5: Unit 5 -->
+                    <div class="col-lg-6 col-xl-4 mb-4">
+                        <div class="card project-card h-100" data-tags="python database management sql">
+                            <div class="project-image database-bg">
+                                <i class="bi bi-database project-icon"></i>
+                                <div class="project-overlay">
+                                    <span class="project-status completed">Complete</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="project-header">
+                                    <h5 class="card-title">GEOG 414 - Unit 5</h5>
+                                    <div class="project-location">
+                                        <i class="bi bi-calendar"></i> 2024
+                                    </div>
+                                </div>
+                                <p class="card-text">Integrating python with Pyscript for webmapping</p>
+                                <div class="project-badges">
+                                    <span class="badge bg-primary">Full Stack</span>
+                                    <span class="badge bg-secondary">Databases</span>
+                                    <span class="badge bg-info">Real-time</span>
+                                    <span class="badge bg-warning">GEOG 414</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <a href="projects/geog414/unit5/index.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View Project
+                                    </a>
+                                    <a href="https://github.com/yourusername/geog414-unit5" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-github"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Back Navigation -->
+                <div class="text-center mt-5">
+                    <a href="projects.html" class="btn btn-outline-primary me-3">
+                        <i class="bi bi-arrow-left me-2"></i>Back to All Projects
+                    </a>
+                    <a href="index.html" class="btn btn-outline-secondary">
+                        <i class="bi bi-house me-2"></i>Home
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <!-- Programming Page Specific JS -->
+    <script>
+        // Filter functionality for programming projects
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterTags = document.querySelectorAll('.filter-tag');
+            const projectCards = document.querySelectorAll('.project-card');
+            const searchInput = document.getElementById('projectSearch');
+            const searchClear = document.getElementById('searchClear');
+            
+            // Filter by tags
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    // Remove active from all tags
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    // Add active to clicked tag
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    filterProjects(filter, searchInput.value);
+                });
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const activeFilter = document.querySelector('.filter-tag.active').dataset.filter;
+                filterProjects(activeFilter, this.value);
+                searchClear.classList.toggle('show', this.value.length > 0);
+            });
+            
+            // Clear search
+            searchClear.addEventListener('click', function() {
+                searchInput.value = '';
+                this.classList.remove('show');
+                const activeFilter = document.querySelector('.filter-tag.active').dataset.filter;
+                filterProjects(activeFilter, '');
+            });
+            
+            function filterProjects(filter, searchTerm) {
+                projectCards.forEach(card => {
+                    const tags = card.dataset.tags || '';
+                    const title = card.querySelector('.card-title').textContent;
+                    const description = card.querySelector('.card-text').textContent;
+                    
+                    let show = true;
+                    
+                    // Apply filter
+                    if (filter !== 'all') {
+                        show = tags.includes(filter);
+                    }
+                    
+                    // Apply search
+                    if (show && searchTerm) {
+                        const searchableText = `${title} ${description} ${tags}`.toLowerCase();
+                        show = searchableText.includes(searchTerm.toLowerCase());
+                    }
+                    
+                    // Animate visibility
+                    if (show) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            }
+        });
+    </script>
+
+    <style>
+        /* Programming Page Header */
+        .projects-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: calc(var(--social-bar-height, 60px) - 5px);
+            position: relative;
+        }
+
+        .projects-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .breadcrumb-custom {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb-custom .breadcrumb-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-custom .breadcrumb-item a:hover {
+            color: white;
+        }
+
+        .breadcrumb-custom .breadcrumb-item.active {
+            color: white;
+            font-weight: 500;
+        }
+
+        .header-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+        }
+
+        .header-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-end;
+        }
+
+        .stat-pill {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-pill:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .projects-content {
+            padding: 2rem 0;
+        }
+
+        /* Project Card Styles */
+        .project-card {
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: white;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            opacity: 0.9;
+        }
+
+        .programming-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gis-bg {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+
+        .automation-bg {
+            background: linear-gradient(135deg, #ad5389 0%, #3c1053 100%);
+        }
+
+        .react-bg {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        }
+
+        .database-bg {
+            background: linear-gradient(135deg, #a55eea 0%, #8b5cf6 100%);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+        }
+
+        .project-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-status.completed {
+            background: rgba(40, 167, 69, 0.9);
+            color: white;
+        }
+
+        .project-status.in-progress {
+            background: rgba(255, 193, 7, 0.9);
+            color: #212529;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .project-location {
+            font-size: 0.85rem;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .project-badges {
+            margin: 1rem 0;
+        }
+
+        .project-badges .badge {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.75rem;
+            padding: 0.35em 0.65em;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .projects-header {
+                padding: 1.25rem 0;
+                margin-top: var(--social-bar-height, 60px);
+            }
+            
+            .header-title {
+                font-size: 1.75rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1rem !important;
+            }
+            
+            .header-stats {
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                margin-top: 1rem;
+            }
+            
+            .stat-pill {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-title {
+                font-size: 1.5rem;
+            }
+            
+            .breadcrumb-custom {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</body>
+</html>

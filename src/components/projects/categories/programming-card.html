@@ -1,13 +1,15 @@
-<!-- Programming Category Card -->
+<!-- Programming Category Card with Link -->
 <div class="col-lg-6 col-md-6 mb-4">
-    <div class="category-card">
-        <div class="category-icon programming">
-            <i class="bi bi-code-slash"></i>
+    <a href="programming.html" class="text-decoration-none">
+        <div class="category-card">
+            <div class="category-icon programming">
+                <i class="bi bi-code-slash"></i>
+            </div>
+            <h4 class="category-title">Programming</h4>
+            <p class="category-description">Web development and geospatial programming projects</p>
+            <div class="project-count">5 Projects</div>
         </div>
-        <h4 class="category-title">Programming</h4>
-        <p class="category-description">Web development and geospatial programming projects</p>
-        <div class="project-count">Coming Soon</div>
-    </div>
+    </a>
 </div>
 
 <style>
@@ -20,12 +22,29 @@
     border: 1px solid #e9ecef;
     height: 100%;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
 }
 
 .category-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     border-color: var(--primary-color);
+}
+
+.category-card:hover::before {
+    left: 100%;
 }
 
 .category-icon {
@@ -38,6 +57,8 @@
     margin: 0 auto 1.5rem auto;
     font-size: 2.5rem;
     color: white;
+    position: relative;
+    z-index: 2;
 }
 
 .category-icon.programming {
@@ -58,11 +79,20 @@
 }
 
 .project-count {
-    background: #f8f9fa;
-    color: #6c757d;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-weight: 600;
     display: inline-block;
+}
+
+/* Ensure text color is preserved when card is wrapped in link */
+a:hover .category-title {
+    color: #2c3e50;
+}
+
+a:hover .category-description {
+    color: #6c757d;
 }
 </style>

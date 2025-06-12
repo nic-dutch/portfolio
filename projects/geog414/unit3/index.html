@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!--*****************************************************
+
+GEOG 414: Programming for Geospatial Data Science II
+Unit 3
+*****************************************************-->
+
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<!-- TO DO: Add a map title -->
+	 <title>Results of the 2020 U.S. Presidential Election in California</title>
+	<!-- TO DO: Import Bootstrap (first), Leaflet (second), and ColorBrewer (third) -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.bundled.js"></script>
+	<script src="https://colorbrewer2.org/export/colorbrewer.js"></script>
+    <style>
+		/* TO DO: Write custom CSS for map and legend as needed */
+		#map {
+			height: 700px;
+			margin-top: 30px;
+        }
+		#map path:hover {
+			fill: yellow;
+			stroke: yellow;
+		}
+		#legend {
+			background-color: #ffffff;
+			border: 2px solid rgba(0,0,0,0.2);
+			border-radius: 4px;
+			padding: 5px;
+		}
+		#legend-title {
+			font-weight: bold;
+			border-bottom: 1px solid rgba(0,0,0,0.2);;
+			margin-bottom: 5px;
+			padding-bottom: 5px;
+		}
+		.legend-caption {
+			display: table-cell;
+			padding-left: 5px;
+			vertical-align: middle;
+		}
+		.legend-row{
+			display: table;
+			margin-bottom: 4px;
+		}
+        .legend-color {
+            display: table-cell;
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
+	</style>
+</head>
+<body>
+	 <div class="container">
+		<div class="row">
+			<div class="col">
+				<h3>Results of the 2020 U.S. Presidential Election</h3>
+				<h6>Votes Cast By Precinct (data source:<a href="https://github.com/TheUpshot/presidential-precinct-map-2020">New York Times</a>)</h6>
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="col">
+				<p>Select a Tile Rendering Mode:</p>
+				<select id ="select-mode" class="form-select" aria-label="Rendering Mode Selection" onchange="drawMap()">
+					<option value="vector" selected>Vector</option>
+					<option value="image">Image</option>
+				  </select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div id="map"></div>
+			</div>
+		</div>
+	</div>
+	 <div id="legend">
+		<div id="legend-title">Legend</div>
+		<div id = "legend-rows"></div>
+        
+        <div class="legend-row">
+            <div class="legend-color" style = "background-color: #b2182b"></div>
+            <div class="legend-caption">Trump +50% or Greater</div>
+        </div>
+        <div class="legend-row">
+            <div class="legend-color" style = "background-color: #ef8a62"></div>
+            <div class="legend-caption">Trump +25% to +50%</div>
+        </div>
+        <div class="legend-row">
+            <div class="legend-color" style = "background-color: #fddbc7"></div>
+            <div class="legend-caption">Trump +0 to 25%</div>
+        </div>
+        <div class="legend-row">
+            <div class="legend-color" style = "background-color: #d1e5f0"></div>
+            <div class="legend-caption">Biden +0% to +25%</div>
+        </div>
+        <div class="legend-row">
+            <div class="legend-color" style = "background-color: #67a9cf"></div>
+            <div class="legend-caption">Biden +25% to +50%</div>
+        </div>
+        <div class="legend-row">
+            <div class="legend-color" style = "background-color: #2166ac"></div>
+            <div class="legend-caption">Biden +50% or Greater</div>
+        </div>
+    </div>
+</div>  
+</body>
+</html>
+<script type="text/javascript">
+
+// TO DO: Map Rendering Logic
+
+let highlight = null;
+
+let map = L.map('map').setView([34.05, -118.3], 12);
+
+let precincts = null;
+
+function fillColor(p){
+	if (p >=50) return '#2166ac';
+	else if (p >=25) return '#67a9cf';
+	else if (p >= 0) return '#d1e5f0';
+	else if (p >= -25) return '#fddbc7';
+	else if (p >= -50) return '#ef8a62';
+	else if (p < -100)  return '#b2182b';
+	else return '#aaaaaa';
+}
+
+function drawMap(){
+	let modeSelect = document.getElementById("select-mode");
+	let mode = modeSelect.options[modeSelect.selectedIndex].value;
+	if(precincts != null) map.removeLayer(precincts);
+	if(mode == 'vector'){
+			precincts = L.vectorGrid.protobuf('http://localhost:8080/geoserver/gwc/service/tms/1.0.0/geog414:precincts@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf',{
+				vectorTileLayerStyles:{ 
+					precincts: function(properties){
+						return{
+							weight: 0.2,
+							color: '#888888',
+							fillColor: fillColor(properties.pct_dem_lead),
+							fillOpacity: 0.5,
+							fill: true
+						}
+					}
+				}
+			}).addTo(map);
+	}
+	if(mode == 'image'){
+		precincts = L.tileLayer.wms("http://localhost:8080/geoserver/geog414/wms", {
+			layers: 'geog414:precincts',
+			opacity: 0.5,
+			detectRetina: true,
+			format: 'image/png',
+			transparent: true,
+			attribution: "Election Data: New York Times",
+		}).addTo(map);
+	}
+}
+
+let basemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
+}).addTo(map);
+
+map.on("click", function(e) {
+    let url = `http://localhost:8080/geoserver/geog414/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geog414%3Aprecincts&maxFeatures=50&outputFormat=application%2Fjson&srsName=EPSG:4326&bbox=${e.latlng.lng},${e.latlng.lat},${e.latlng.lng + .0000000001},${e.latlng.lat + .0000000001}`;
+    
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+			if (highlight != null) map.removeLayer(highlight);
+			highlight = L.geoJSON(data)
+			.bindPopup(function(layer){
+				return `<strong>Precinct: ${layer.feature.properties.GEOID}</strong><hr/>Biden: ${layer.feature.properties.votes_dem}(${Number(layer.feature.properties.pct_dem).toFixed(2)})%<br/>Trump: ${layer.feature.properties.votes_rep}(${Number(layer.feature.properties.pct_rep).toFixed(2)}%)`;
+			})
+			.addTo(map);
+			highlight.openPopup();
+            console.log(data); 
+        })
+        .catch(error => console.error("Fetch error:", error));
+});
+
+let legend = L.control({position: 'bottomleft'});
+legend.onAdd = function (m){
+    return document.getElementById('legend');
+};
+legend.addTo(map);
+
+drawMap();
+
+
+</script>
+</html>

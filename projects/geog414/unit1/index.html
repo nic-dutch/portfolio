@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEOG 414 Unit 1 Assignment - Nic Dutch</title>
+    <!-- Load Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #E9E0AF;
+        }
+        .result {
+            margin-top: 20px;
+            display: none;
+            color: #2D5016;
+            background-color: rgba(233, 224, 175, 0.5);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #2D5016;
+        }
+        .game-result {
+            margin-top: 10px;
+            color: #2D5016;
+            display: none;
+            background-color: rgba(233, 224, 175, 0.5);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #C36F09;
+        }
+        .warm-up-section {
+            background-color: #2D5016;
+            color: #E9E0AF;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .warm-up-section h2 {
+            color: #E9E0AF;
+            margin-bottom: 15px;
+        }
+        .exercise-output {
+            background-color: #E9E0AF;
+            color: #2D5016;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .radio-group {
+            margin: 10px 0;
+        }
+        .radio-group label {
+            margin-right: 15px;
+            margin-left: 5px;
+        }
+        .card {
+            border: none;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .btn-primary {
+            background-color: #2D5016;
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #1f3810;
+            transform: translateY(-1px);
+        }
+        .btn-info {
+            background-color: #C36F09;
+            border: none;
+        }
+        .btn-info:hover {
+            background-color: #a55907;
+        }
+        .btn-warning {
+            background-color: #C36F09;
+            border: none;
+        }
+        .btn-warning:hover {
+            background-color: #a55907;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+        .form-control:focus {
+            border-color: #2D5016;
+            box-shadow: 0 0 0 0.2rem rgba(45, 80, 22, 0.25);
+        }
+        .page-header {
+            background-color: #2D5016;
+            color: #E9E0AF;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        .page-header h3 {
+            font-weight: 400;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!--*****************************************************
+
+GEOG 414: Programming for Geospatial Data Science II
+Unit 1 Assignment
+Nic Dutch
+
+*****************************************************-->
+
+<div class="page-header">
+    <div class="container">
+        <h3>GEOG 414 Unit 1 Assignment - Nic Dutch</h3>
+    </div>
+</div>
+
+<div class="container">
+    
+    <!-- Warm-up Exercises Section -->
+    <div class="warm-up-section">
+        <h2>Warm-up Exercises</h2>
+        <p>Click the button below to run all warm-up exercises and see their output:</p>
+        <button class="btn btn-info" onclick="runWarmUpExercises()">Run Warm-up Exercises</button>
+        <div id="warmupOutput" class="exercise-output" style="display: none;"></div>
+        
+        <!-- Exercise 5 Demo -->
+        <div class="mt-3">
+            <h5>Exercise 5 Demo:</h5>
+            <div id="myDiv" class="alert alert-secondary">Original content - click button to change</div>
+            <button class="btn btn-sm btn-warning" onclick="changeContent()">Change Div Content</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Column 1: Distance Calculator -->
+        <div class="col-md-6">
+            <h2>Programming Challenge 1: Distance Calculator</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h4>Location 1</h4>
+                        <label for="location1lat">Latitude:</label>
+                        <input type="number" id="location1lat" class="form-control" placeholder="e.g., 40.7128" step="any" required>
+                        <label for="location1lon">Longitude:</label>
+                        <input type="number" id="location1lon" class="form-control" placeholder="e.g., -74.0060" step="any" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <h4>Location 2</h4>
+                        <label for="location2lat">Latitude:</label>
+                        <input type="number" id="location2lat" class="form-control" placeholder="e.g., 34.0522" step="any" required>
+                        <label for="location2lon">Longitude:</label>
+                        <input type="number" id="location2lon" class="form-control" placeholder="e.g., -118.2437" step="any" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <h4>Choose Unit</h4>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="unit" id="kmRadio" checked>
+                                Kilometers (km)
+                            </label>
+                            <label>
+                                <input type="radio" name="unit" id="milesRadio">
+                                Miles (mi)
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="onClickLocation()">Calculate Distance</button>
+
+                    <div id="distanceResult" class="result">
+                        <h4>Distance Result</h4>
+                        <div id="distanceResultText"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column 2: Guessing Game -->
+        <div class="col-md-6">
+            <h2>Programming Challenge 2: Number Guessing Game</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h4>Guess the Mystery Number!</h4>
+                    <p>I'm thinking of a number between 1 and 100. Can you guess it?</p>
+                    
+                    <div class="mb-3">
+                        <label for="UserGuess" class="form-label">Your Guess:</label>
+                        <input type="number" class="form-control" id="UserGuess" placeholder="Enter a number between 1-100" min="1" max="100">
+                        <div class="form-text">Enter your guess of the mystery number (1-100).</div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary" onclick="checkGuess()">Check Guess</button>
+                    <button type="button" class="btn btn-secondary ml-2" onclick="resetGame()">Reset Game</button>
+                    
+                    <div id="gameResult" class="game-result">
+                        <div id="gameResultText"></div>
+                        <div id="turnsCounter" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Load Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+// WARM-UP EXERCISES:  Complete this series of five warm-up exercises to get started with JavaScript programming.
+
+// EXERCISE 1:  Write a loop that displays (on the console) the powers of 2 for all numbers (n) ranging from 0 to 20.
+function exercise1() {
+    let output = "Exercise 1 - Powers of 2:\n";
+    for (let n = 0; n <= 20; n++) {
+        const result = Math.pow(2, n);
+        output += `2 to the power of ${n} is ${result}\n`;
+        console.log(`2 to the power of ${n} is ${result}`);
+    }
+    return output;
+}
+
+// EXERCISE 2:  Write a function that implements the Pythagorean theorem
+function calculateHypotenuse(a, b) {
+    return Math.sqrt(a * a + b * b);
+}
+
+function exercise2() {
+    const result = calculateHypotenuse(3, 4);
+    const output = `Exercise 2 - Pythagorean Theorem:\nThe hypotenuse of a triangle with sides 3 and 4 is ${result}`;
+    console.log(output);
+    return output;
+}
+
+// EXERCISE 3:  Write a function that can be used to test whether a number is even or odd
+function isEven(number) {
+    return number % 2 === 0;
+}
+
+function exercise3() {
+    let output = "Exercise 3 - Even/Odd Test:\n";
+    const testNumbers = [4, 7, 10, 15];
+    
+    testNumbers.forEach(number => {
+        const result = isEven(number);
+        const evenOdd = result ? "even" : "odd";
+        output += `The number ${number} is ${evenOdd} (function returned ${result})\n`;
+        console.log(`The number ${number} is ${evenOdd} (function returned ${result})`);
+    });
+    
+    return output;
+}
+
+// EXERCISE 4:  Write a function that converts Degree-Minute-Second (DMS) coordinates to decimal degrees
+function dmsToDecimalDegrees(degrees, minutes, seconds) {
+    return degrees + (minutes / 60) + (seconds / 3600);
+}
+
+function exercise4() {
+    const result = dmsToDecimalDegrees(40, 20, 50);
+    const output = `Exercise 4 - DMS to Decimal Degrees:\n40° 20' 50" = ${result.toFixed(6)}°`;
+    console.log(output);
+    return output;
+}
+
+// EXERCISE 5:  Write a statement that changes the HTML content of a <div> tag
+function changeContent() {
+    document.getElementById('myDiv').innerHTML = '<strong>Content has been changed by JavaScript!</strong> 🎉';
+    document.getElementById('myDiv').className = 'alert alert-success';
+}
+
+function exercise5() {
+    const output = "Exercise 5 - DOM Manipulation:\nFunction created to change div content. Click the button above to test it!";
+    console.log(output);
+    return output;
+}
+
+// Function to run all warm-up exercises
+function runWarmUpExercises() {
+    let allOutput = "";
+    allOutput += exercise1() + "\n\n";
+    allOutput += exercise2() + "\n\n";
+    allOutput += exercise3() + "\n\n";
+    allOutput += exercise4() + "\n\n";
+    allOutput += exercise5();
+    
+    document.getElementById('warmupOutput').textContent = allOutput;
+    document.getElementById('warmupOutput').style.display = 'block';
+}
+
+// *****************************************************
+// PROGRAMMING CHALLENGES
+
+// PROGRAMMING CHALLENGE 1:  LOCATION CALCULATOR
+function haversine(lat1, lon1, lat2, lon2, miles = false) {
+    function toRad(x) {
+        return (x * Math.PI) / 180;
+    }
+    
+    const R = 6371; // Radius of the Earth in km
+    let dLat = toRad(lat2 - lat1);
+    let dLon = toRad(lon2 - lon1);
+    
+    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let d = R * c; // Distance in km
+    
+    if (miles) {
+        d = d * 0.621371; // Convert to miles
+    }
+    
+    return d;
+}
+
+function onClickLocation() {
+    // Get input values
+    let lat1 = parseFloat(document.getElementById("location1lat").value);
+    let lon1 = parseFloat(document.getElementById("location1lon").value);
+    let lat2 = parseFloat(document.getElementById("location2lat").value);
+    let lon2 = parseFloat(document.getElementById("location2lon").value);
+    
+    // Validate inputs
+    if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
+        alert("Please enter valid numbers for all coordinates.");
+        return;
+    }
+    
+    if (lat1 < -90 || lat1 > 90 || lat2 < -90 || lat2 > 90) {
+        alert("Latitude values must be between -90 and 90 degrees.");
+        return;
+    }
+    
+    if (lon1 < -180 || lon1 > 180 || lon2 < -180 || lon2 > 180) {
+        alert("Longitude values must be between -180 and 180 degrees.");
+        return;
+    }
+    
+    // Check which unit is selected
+    let miles = document.getElementById("milesRadio").checked;
+    let unit = miles ? "miles" : "kilometers";
+    
+    // Calculate distance
+    let distance = haversine(lat1, lon1, lat2, lon2, miles);
+    
+    // Display result
+    document.getElementById("distanceResultText").innerHTML = 
+        `The distance between point (${lat1}°, ${lon1}°) and (${lat2}°, ${lon2}°) is <strong>${distance.toFixed(4)} ${unit}</strong>.`;
+    document.getElementById("distanceResult").style.display = "block";
+}
+
+// PROGRAMMING CHALLENGE 2: NUMBER GUESSING GAME
+let mysteryNumber = Math.floor(Math.random() * 100) + 1; // Random number between 1 and 100
+let turnsTaken = 0;
+
+function checkGuess() {
+    let userGuess = parseInt(document.getElementById("UserGuess").value);
+    let resultDisplay = document.getElementById("gameResultText");
+    let turnsDisplay = document.getElementById("turnsCounter");
+    let resultContainer = document.getElementById("gameResult");
+    
+    // Validate input
+    if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+        resultDisplay.innerHTML = "❌ Please enter a valid number between 1 and 100.";
+        resultContainer.style.display = "block";
+        return;
+    }
+    
+    turnsTaken++;
+    
+    if (userGuess === mysteryNumber) {
+        resultDisplay.innerHTML = `🎉 Congratulations! You guessed the correct number (${mysteryNumber})!`;
+        turnsDisplay.innerHTML = `You won in ${turnsTaken} turn${turnsTaken === 1 ? '' : 's'}!`;
+        resultContainer.style.color = "green";
+    } else if (userGuess < mysteryNumber) {
+        resultDisplay.innerHTML = "📈 Too low! Try a higher number.";
+        turnsDisplay.innerHTML = `Turn ${turnsTaken} - Keep guessing!`;
+        resultContainer.style.color = "orange";
+    } else {
+        resultDisplay.innerHTML = "📉 Too high! Try a lower number.";
+        turnsDisplay.innerHTML = `Turn ${turnsTaken} - Keep guessing!`;
+        resultContainer.style.color = "orange";
+    }
+    
+    resultContainer.style.display = "block";
+    
+    // Clear the input for next guess
+    document.getElementById("UserGuess").value = "";
+}
+
+function resetGame() {
+    mysteryNumber = Math.floor(Math.random() * 100) + 1; // Reset the mystery number
+    turnsTaken = 0;
+    document.getElementById("UserGuess").value = ""; // Clear input
+    document.getElementById("gameResultText").innerHTML = "";
+    document.getElementById("turnsCounter").innerHTML = "";
+    document.getElementById("gameResult").style.display = "none"; // Hide result display
+    console.log("Game reset! New mystery number generated.");
+}
+
+// Allow Enter key to submit guesses
+document.getElementById("UserGuess").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        checkGuess();
+    }
+});
+
+// Initialize the page
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("GEOG 414 Assignment loaded successfully!");
+    console.log("Mystery number generated for guessing game.");
+});
+</script>
+
+</body>
+</html>

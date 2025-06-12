@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
+    <title>Nic Dutch - Geospatial Forest Ecology</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
@@ -17,15 +17,6 @@
     <script src="js/components/component-loader.js"></script>
 </head>
 <body>
-    <!-- Loading indicator -->
-    <div id="loading-indicator" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
-        <div class="text-center">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading components...</span>
-            </div>
-            <p class="mt-2">Loading components...</p>
-        </div>
-    </div>
 
     <!-- Mobile Toggle Button -->
     <button class="sidebar-toggle" id="sidebarToggle">
@@ -57,23 +48,5 @@
     <!-- Custom JavaScript -->
     <script src="js/main.js"></script>
     
-    <script>
-        // Hide loading indicator and initialize app when components are loaded
-        document.addEventListener('componentsLoaded', function() {
-            // Hide loading indicator
-            const loadingIndicator = document.getElementById('loading-indicator');
-            if (loadingIndicator) {
-                loadingIndicator.style.display = 'none';
-            }
-            
-            // Initialize your existing JavaScript
-            if (typeof initSidebar === 'function') initSidebar();
-            if (typeof initSearch === 'function') initSearch();
-            if (typeof initNavigation === 'function') initNavigation();
-            if (typeof initAnimations === 'function') initAnimations();
-            
-            console.log('🎉 Portfolio initialized successfully!');
-        });
-    </script>
 </body>
 </html>

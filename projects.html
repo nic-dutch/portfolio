@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - Loading...</title>
+    <title>Projects</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
@@ -11,62 +11,363 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/pages/projects.css">
-
+    <link rel="stylesheet" href="css/styles.css">
     
-    <!-- Component Loader -->
+    <!-- Component Loader (NEEDED for template variables) -->
     <script src="js/components/component-loader.js"></script>
 </head>
 <body>
-    <!-- Loading indicator -->
-    <div id="loading-indicator" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
-        <div class="text-center">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading projects...</span>
-            </div>
-            <p class="mt-2">Loading projects...</p>
-        </div>
-    </div>
 
     <!-- Mobile Toggle Button -->
     <button class="sidebar-toggle" id="sidebarToggle">
         <i class="bi bi-list"></i>
     </button>
 
-    {{> shared/navigation}}
-    
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>{{author}}</h3>
+            <p>Geospatial Ecologist</p>
+            <p class="sidebar-subtitle">{{position}} | {{institution}}</p>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="sidebar-search">
+            <div class="search-container">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search research..." id="projectSearch">
+                <button class="search-clear" id="searchClear">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            
+            <!-- Research Filter Tags -->
+            <div class="filter-tags">
+                <span class="filter-tag active" data-filter="all">All</span>
+                <span class="filter-tag" data-filter="ucanr">Current Work</span>
+                <span class="filter-tag" data-filter="ucla">Graduate</span>
+                <span class="filter-tag" data-filter="ucb">Undergraduate</span>
+                <span class="filter-tag" data-filter="post-fire">Post-Fire</span>
+                <span class="filter-tag" data-filter="reforestation">Reforestation</span>
+                <span class="filter-tag" data-filter="remote-sensing">Remote Sensing</span>
+                <span class="filter-tag" data-filter="gis">GIS</span>
+            </div>
+        </div>
+        
+        <ul class="sidebar-nav nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="bi bi-house"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html#research">
+                    <i class="bi bi-tree"></i>
+                    <span>Research Focus</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="projects.html">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html#experience">
+                    <i class="bi bi-tools"></i>
+                    <span>Field Experience</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html#skills">
+                    <i class="bi bi-cpu"></i>
+                    <span>Technical Skills</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html#publications">
+                    <i class="bi bi-journal-text"></i>
+                    <span>Publications</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html#contact">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
     <!-- Sidebar Overlay (mobile) -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    {{> shared/social-bar}}
+    <!-- Top Social Bar -->
+    <div class="top-social-bar">
+        <div class="social-links">
+            <a href="mailto:{{email}}" class="social-link">
+                <i class="bi bi-envelope-fill"></i>
+                <span>{{email}}</span>
+            </a>
+            <a href="{{github}}" target="_blank" class="social-link">
+                <i class="bi bi-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="{{linkedin}}" target="_blank" class="social-link">
+                <i class="bi bi-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+            <a href="{{orcid}}" target="_blank" class="social-link">
+                <i class="bi bi-person-badge"></i>
+                <span>ORCID</span>
+            </a>
+        </div>
+    </div>
 
-    <!-- Main Content -->
+<!-- Main Content -->
     <main class="main-content">
-        {{> projects/projects-hero}}
-        {{> projects/projects-categories}}
+        <!-- NEW: Compact Header Section -->
+        <section class="projects-header">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-custom">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <i class="bi bi-house-fill me-1"></i>Home
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ol>
+                </nav>
+                
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="header-title">Project Portfolio</h1>
+                        <p class="header-subtitle mb-0">Explore my work across different technical areas</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <div class="header-stats">
+                            <span class="stat-pill">
+                                <i class="bi bi-folder-fill me-1"></i>
+                                4 Categories
+                            </span>
+                            <span class="stat-pill">
+                                <i class="bi bi-collection-fill me-1"></i>
+                                12+ Projects
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXISTING: Your current content (modified slightly) -->
+        <section class="projects-content">
+            <div class="container">
+                <div class="mt-4">
+                    <h3>Project Categories</h3>
+                    <p>Here we will add project categories later.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Programming</h6>
+                                    <p class="card-text">Web development and geospatial programming projects</p>
+                                    <small class="text-muted">Coming soon</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Remote Sensing</h6>
+                                    <p class="card-text">Satellite imagery analysis and change detection</p>
+                                    <small class="text-muted">Coming soon</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Database Management</h6>
+                                    <p class="card-text">Spatial databases and data integration</p>
+                                    <small class="text-muted">Coming soon</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Web Design</h6>
+                                    <p class="card-text">Interactive applications and dashboards</p>
+                                    <small class="text-muted">Coming soon</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <a href="index.html" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<style>
+/* Compact Header Styles */
+/* Updated Compact Header Styles - Closer to Social Bar */
+.projects-header {
+    background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+    color: white;
+    padding: 1.5rem 0;
+    /* REDUCED: Closer to social bar */
+    margin-top: calc(var(--social-bar-height, 60px) - 5px);
+    position: relative;
+}
+
+/* Alternative options - try these if you want even closer: */
+
+/* Option 1: No gap at all */
+/*
+.projects-header {
+    margin-top: var(--social-bar-height, 60px);
+    padding-top: 0.5rem;
+}
+*/
+
+/* Option 2: Slight overlap for seamless look */
+/*
+.projects-header {
+    margin-top: calc(var(--social-bar-height, 60px) - 10px);
+    padding-top: 1rem;
+}
+*/
+
+/* Option 3: Very tight spacing */
+/*
+.projects-header {
+    margin-top: calc(var(--social-bar-height, 60px) + 5px);
+    padding-top: 1rem;
+}
+*/
+
+.projects-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.breadcrumb-custom {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-custom .breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-custom .breadcrumb-item a:hover {
+    color: white;
+}
+
+.breadcrumb-custom .breadcrumb-item.active {
+    color: white;
+    font-weight: 500;
+}
+
+.header-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.header-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+}
+
+.header-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+}
+
+.stat-pill {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.stat-pill:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.projects-content {
+    padding: 2rem 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .projects-header {
+        padding: 1.25rem 0;
+        /* Keep same spacing on mobile */
+        margin-top: var(--social-bar-height, 60px);
+    }
     
-    <!-- Custom JavaScript -->
-    <script src="js/main.js"></script>
+    .header-title {
+        font-size: 1.75rem;
+    }
     
-    <script>
-        // Initialize when components are loaded
-        document.addEventListener('componentsLoaded', function() {
-            // Hide loading indicator
-            const loadingIndicator = document.getElementById('loading-indicator');
-            if (loadingIndicator) {
-                loadingIndicator.style.display = 'none';
-            }
-            
-            // Initialize sidebar and navigation
-            if (typeof initSidebar === 'function') initSidebar();
-            if (typeof initNavigation === 'function') initNavigation();
-            
-            console.log('🎉 Projects page initialized successfully!');
-        });
-    </script>
-</body>
-</html>
+    .header-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1rem !important;
+    }
+    
+    .header-stats {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+    
+    .stat-pill {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-title {
+        font-size: 1.5rem;
+    }
+    
+    .breadcrumb-custom {
+        font-size: 0.8rem;
+    }
+}
+</style>

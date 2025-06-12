@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
+    <title>Nic Dutch Geospatial Projects</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
+    <!-- Custom CSS for Projects-->
     <link rel="stylesheet" href="css/styles.css">
     
-    <!-- Component Loader -->
-    <script src="js/components/component-loader.js"></script>
 </head>
 <body>
 
@@ -28,7 +25,8 @@
     
     <!-- Sidebar Overlay (mobile) -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
+    
+     <!-- Shared Social Bar header -->
     {{> shared/social-bar}}
 
     <!-- Main Content -->
@@ -48,23 +46,5 @@
     <!-- Custom JavaScript -->
     <script src="js/main.js"></script>
     
-    <script>
-        // Hide loading indicator and initialize app when components are loaded
-        document.addEventListener('componentsLoaded', function() {
-            // Hide loading indicator
-            const loadingIndicator = document.getElementById('loading-indicator');
-            if (loadingIndicator) {
-                loadingIndicator.style.display = 'none';
-            }
-            
-            // Initialize your existing JavaScript
-            if (typeof initSidebar === 'function') initSidebar();
-            if (typeof initSearch === 'function') initSearch();
-            if (typeof initNavigation === 'function') initNavigation();
-            if (typeof initAnimations === 'function') initAnimations();
-            
-            console.log('🎉 Portfolio initialized successfully!');
-        });
-    </script>
 </body>
 </html>
